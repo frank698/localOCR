@@ -8,3 +8,10 @@
    ollama run gemma3:12b
    ```
 
+**Install Dependencies**:
+   Ensure you have Python 3.11 or later installed.
+   ```bash
+   pip install streamlit ollama pillow
+   ```
+
+---

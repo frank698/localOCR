@@ -1,3 +1,19 @@
+# Image Analysis App
+
+A powerful application that uses AI vision models to analyze and describe images. Upload multiple images, get detailed descriptions powered by Gemma 3, and export the results to CSV.
+
+## What this application does
+
+This application allows you to:
+
+- Upload multiple images in common formats (JPG, PNG)
+- Process these images using the Gemma 3 12B vision model through Ollama
+- Get detailed AI-generated descriptions of the content in each image
+- View the analysis results in a clean, organized interface
+- Export all results to a CSV file for further analysis or record-keeping
+
+The app uses Streamlit for the interface, Ollama as the backend for running the Gemma 3 vision model locally, and Python's PIL library for image processing.
+
 ## Installation and setup
 
 ### Step 1: Install Ollama
@@ -95,6 +111,16 @@ pip install -r requirements.txt
 - View detailed descriptions of each uploaded image
 - Download analysis results as a CSV file for further processing
 
+## Technical Details
+
+This application leverages several key technologies:
+
+- **Streamlit**: Provides the web interface and interactive components
+- **Ollama**: Runs the Gemma 3 vision model locally 
+- **Gemma 3 12B**: Google's vision-language model that powers the image analysis
+- **Pillow (PIL)**: Handles image processing and format conversion
+- **Pandas**: Used for data manipulation and CSV export
+
 ## Troubleshooting
 
 - **Package installation issues**: If you encounter problems installing the dependencies, try updating pip first: `pip install --upgrade pip`
@@ -102,3 +128,5 @@ pip install -r requirements.txt
 - **Ollama connection errors**: Ensure Ollama is running by checking `ollama serve` or restarting the Ollama service.
 
 ---
+
+Made with ❤️ by Adrian with Claude - [ad1x.com](https://ad1x.com)

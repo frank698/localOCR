@@ -1,35 +1,22 @@
 import streamlit as st
 import ollama
-from PIL import Image
 import io
 import base64
 import pandas as pd
+from PIL import Image
 from datetime import datetime
 import csv
 
-# Page configuration
+# Set page config must be the first Streamlit command
 st.set_page_config(
-    page_title="Gemma-3 OCR",
-    page_icon="🔎",
+    page_title="Curiosity AI Scans",
+    page_icon="🔍",
     layout="wide",
     initial_sidebar_state="expanded"
 )
 
-# Title and description in main area
-st.markdown("""
-    # <img src="data:image/png;base64,{}" width="50" style="vertical-align: -12px;"> Gemma-3 OCR
-""".format(base64.b64encode(open("./assets/gemma3.png", "rb").read()).decode()), unsafe_allow_html=True)
-
-# Add clear button to top right
-col1, col2 = st.columns([6,1])
-with col2:
-    if st.button("Clear 🗑️"):
-        if 'ocr_result' in st.session_state:
-            del st.session_state['ocr_result']
-        st.rerun()
-
-st.markdown('<p style="margin-top: -20px;">Extract structured text from images using Gemma-3 Vision!</p>', unsafe_allow_html=True)
-st.markdown("---")
+# Display the app title
+st.title("Curiosity AI Scans")
 
 # Initialize session state for storing results if it doesn't exist
 if 'results' not in st.session_state:
@@ -136,8 +123,17 @@ if not uploaded_files:
     2. Click the 'Process Images' button to analyze them
     3. View the results for each image
     4. Download all results as a CSV file
+    
+    This app uses the Gemma 3 12B vision model to analyze and describe images.
     """)
 
-# Footer
+# Add a footer with attribution
 st.markdown("---")
-st.markdown("Made with ❤️ using Gemma-3 Vision Model")
+st.markdown(
+    """
+    <div style="text-align: center; margin-top: 20px; opacity: 0.7;">
+        Made with ❤️ by Adrian with Claude - <a href="https://ad1x.com" target="_blank">ad1x.com</a>
+    </div>
+    """, 
+    unsafe_allow_html=True
+)

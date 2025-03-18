@@ -1,18 +1,19 @@
-# Image Analysis App
+# Curiosity AI Scans
 
-A powerful application that uses AI vision models to analyze and describe images. Upload multiple images, get detailed descriptions powered by Gemma 3, and export the results to CSV.
+A powerful application that uses AI vision models to analyze and describe images and PDF documents. Upload multiple files, get detailed descriptions powered by Gemma 3, and export the results to CSV.
 
 ## What this application does
 
 This application allows you to:
 
-- Upload multiple images in common formats (JPG, PNG)
-- Process these images using the Gemma 3 12B vision model through Ollama
-- Get detailed AI-generated descriptions of the content in each image
+- Upload multiple images (JPG, PNG) and PDF documents
+- Process these files using the Gemma 3 12B vision model through Ollama
+- Get detailed AI-generated descriptions of the content in each image or PDF page
+- Extract specific fields from documents (e.g., invoice numbers, dates, amounts)
 - View the analysis results in a clean, organized interface
 - Export all results to a CSV file for further analysis or record-keeping
 
-The app uses Streamlit for the interface, Ollama as the backend for running the Gemma 3 vision model locally, and Python's PIL library for image processing.
+The app uses Streamlit for the interface, Ollama as the backend for running the Gemma 3 vision model locally, PIL for image processing, and pdf2image for PDF support.
 
 ## Installation and setup
 
@@ -35,7 +36,29 @@ brew install ollama
 1. Download the Ollama installer from [https://ollama.com/download](https://ollama.com/download)
 2. Run the installer and follow the on-screen instructions
 
-### Step 2: Pull the Gemma-3 Vision model
+### Step 2: System Dependencies for PDF Support
+
+PDF processing requires Poppler (a system dependency that pdf2image relies on):
+
+#### Linux
+```bash
+# Debian/Ubuntu
+sudo apt-get install poppler-utils
+
+# Fedora
+sudo dnf install poppler-utils
+```
+
+#### macOS
+```bash
+brew install poppler
+```
+
+#### Windows
+Download and install from: https://github.com/oschwartz10612/poppler-windows/releases/
+Add the bin/ directory to your PATH.
+
+### Step 3: Pull the Gemma-3 Vision model
 
 After installing Ollama, pull the required model:
 ```bash
@@ -43,7 +66,7 @@ After installing Ollama, pull the required model:
 ollama run gemma3:12b
 ```
 
-### Step 3: Set up Python environment
+### Step 4: Set up Python environment
 
 Ensure you have Python 3.9 or later installed (Python 3.9-3.12 recommended for best compatibility).
 
@@ -75,7 +98,7 @@ python -m venv venv
 venv\Scripts\activate
 ```
 
-### Step 4: Install dependencies
+### Step 5: Install dependencies
 
 With your virtual environment activated, install the required packages:
 ```bash
@@ -107,8 +130,11 @@ pip install -r requirements.txt
 
 ## Features
 
-- Upload and analyze multiple images using Gemma 3 vision model
-- View detailed descriptions of each uploaded image
+- Upload and analyze multiple images and PDF documents using Gemma 3 vision model
+- Choose between general description and custom field extraction
+- Process PDF files page by page or as complete documents
+- Extract specific fields like invoice numbers, dates, and amounts
+- View detailed descriptions of each uploaded file
 - Download analysis results as a CSV file for further processing
 
 ## Technical Details
@@ -119,6 +145,7 @@ This application leverages several key technologies:
 - **Ollama**: Runs the Gemma 3 vision model locally 
 - **Gemma 3 12B**: Google's vision-language model that powers the image analysis
 - **Pillow (PIL)**: Handles image processing and format conversion
+- **pdf2image**: Converts PDF pages to images for processing
 - **Pandas**: Used for data manipulation and CSV export
 
 ## Troubleshooting
@@ -126,6 +153,7 @@ This application leverages several key technologies:
 - **Package installation issues**: If you encounter problems installing the dependencies, try updating pip first: `pip install --upgrade pip`
 - **Compatibility issues**: This application works best with Python 3.9-3.12. Python 3.13 might have compatibility issues with some packages.
 - **Ollama connection errors**: Ensure Ollama is running by checking `ollama serve` or restarting the Ollama service.
+- **PDF processing errors**: Make sure Poppler is installed correctly and accessible in your PATH.
 
 ---
 

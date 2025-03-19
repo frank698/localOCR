@@ -13,7 +13,7 @@ This application allows you to:
 - View the analysis results in a clean, organized interface
 - Export all results to a CSV file for further analysis or record-keeping
 
-The app uses Streamlit for the interface, Ollama as the backend for running the Gemma 3 vision model locally, PIL for image processing, and pdf2image for PDF support.
+The app uses Streamlit for the interface, Ollama as the backend for running the Gemma 3 vision model locally, PIL for image processing, and PyMuPDF for PDF support.
 
 ## Installation and setup
 
@@ -36,29 +36,7 @@ brew install ollama
 1. Download the Ollama installer from [https://ollama.com/download](https://ollama.com/download)
 2. Run the installer and follow the on-screen instructions
 
-### Step 2: System Dependencies for PDF Support
-
-PDF processing requires Poppler (a system dependency that pdf2image relies on):
-
-#### Linux
-```bash
-# Debian/Ubuntu
-sudo apt-get install poppler-utils
-
-# Fedora
-sudo dnf install poppler-utils
-```
-
-#### macOS
-```bash
-brew install poppler
-```
-
-#### Windows
-Download and install from: https://github.com/oschwartz10612/poppler-windows/releases/
-Add the bin/ directory to your PATH.
-
-### Step 3: Pull the Gemma-3 Vision model
+### Step 2: Pull the Gemma-3 Vision model
 
 After installing Ollama, pull the required model:
 ```bash
@@ -66,7 +44,7 @@ After installing Ollama, pull the required model:
 ollama run gemma3:12b
 ```
 
-### Step 4: Set up Python environment
+### Step 3: Set up Python environment
 
 Ensure you have Python 3.9 or later installed (Python 3.9-3.12 recommended for best compatibility).
 
@@ -98,12 +76,15 @@ python -m venv venv
 venv\Scripts\activate
 ```
 
-### Step 5: Install dependencies
+### Step 4: Install dependencies
 
 With your virtual environment activated, install the required packages:
 ```bash
 # Install dependencies using requirements.txt
 pip install -r requirements.txt
+
+# If PyMuPDF is not included in requirements.txt, install it manually:
+pip install pymupdf
 ```
 
 ## Running the Application
@@ -145,7 +126,7 @@ This application leverages several key technologies:
 - **Ollama**: Runs the Gemma 3 vision model locally 
 - **Gemma 3 12B**: Google's vision-language model that powers the image analysis
 - **Pillow (PIL)**: Handles image processing and format conversion
-- **pdf2image**: Converts PDF pages to images for processing
+- **PyMuPDF**: Converts PDF pages to images for processing (imported as `fitz`)
 - **Pandas**: Used for data manipulation and CSV export
 
 ## Troubleshooting
@@ -153,7 +134,8 @@ This application leverages several key technologies:
 - **Package installation issues**: If you encounter problems installing the dependencies, try updating pip first: `pip install --upgrade pip`
 - **Compatibility issues**: This application works best with Python 3.9-3.12. Python 3.13 might have compatibility issues with some packages.
 - **Ollama connection errors**: Ensure Ollama is running by checking `ollama serve` or restarting the Ollama service.
-- **PDF processing errors**: Make sure Poppler is installed correctly and accessible in your PATH.
+- **PDF processing errors**: If PDF processing isn't working, ensure PyMuPDF is installed correctly with `pip install pymupdf`.
+- **PDF support optional**: The application will run without PDF support, but will display a warning. Install PyMuPDF to enable PDF processing.
 
 ---
 

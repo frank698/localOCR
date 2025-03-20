@@ -1,6 +1,8 @@
+## Thank you to everyone for starring my repo! I'll do my best to extend the functionality regularly and fix things if people find problems. 
+
 # Curiosity AI Scans
 
-A powerful application that uses AI vision models to analyze and describe images and PDF documents. Upload multiple files, get detailed descriptions powered by Gemma 3, and export the results to CSV.
+A simple application that uses AI vision models to analyze and describe images and PDF documents. Upload multiple files, get detailed descriptions powered by Gemma 3, and export the results to CSV.
 
 ## What this application does
 

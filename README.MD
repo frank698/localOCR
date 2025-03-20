@@ -139,6 +139,7 @@ This application leverages several key technologies:
 - **PDF processing errors**: If PDF processing isn't working, ensure PyMuPDF is installed correctly with `pip install pymupdf`.
 - **PDF support optional**: The application will run without PDF support, but will display a warning. Install PyMuPDF to enable PDF processing.
 
+## Try to keep your prompts short with Gemma for better results, larger promps with detaild instructions don't seem to result in better outputs
 ---
 
 Made with ❤️ by Adrian with Claude - [ad1x.com](https://ad1x.com)

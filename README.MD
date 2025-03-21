@@ -49,6 +49,9 @@ ollama pull gemma3:12b
 
 # Pull the Llama 3.2 Vision model
 ollama pull llama3.2-vision
+
+# Pull the Granite 3.2 Vision model (smaller option for limited RAM)
+ollama pull granite3.2-vision
 ```
 
 You can pull just one or both models depending on your needs. The app will work with whichever model you have installed.
@@ -132,8 +135,9 @@ pip install pymupdf
 
 - **Gemma 3 12B**: Google's vision-language model that provides detailed descriptions and good structure recognition
 - **Llama 3.2 Vision**: Meta's vision model that excels at recognizing visual content and following detailed instructions
+- **Granite 3.2 Vision**: A smaller 2B parameter model that works well on systems with limited RAM while still providing reasonable analysis
 
-Choose the appropriate model based on your specific needs. Gemma 3 may perform better for some document types, while Llama 3.2 might be preferable for others.
+Choose the appropriate model based on your specific needs and hardware constraints.
 
 ## Technical Details
 

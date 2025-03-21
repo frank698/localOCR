@@ -217,7 +217,7 @@ with st.sidebar:
     st.header("Model Settings")
     selected_model = st.selectbox(
         "Choose vision model:",
-        ["gemma3:12b", "llama3.2-vision"],
+        ["gemma3:12b", "llama3.2-vision", "granite3.2-vision"],
         help="Select which AI model to use for image analysis"
     )
     

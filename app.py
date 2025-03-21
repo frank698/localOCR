@@ -27,7 +27,7 @@ except ImportError:
 
 # --- HELPER FUNCTIONS ---
 
-def resize_image(image, max_size=1024):
+def resize_image(image, max_size=1920):
     """Resize an image while maintaining aspect ratio"""
     width, height = image.size
     
@@ -49,10 +49,10 @@ def image_to_base64(image):
     image.save(img_byte_arr, format='JPEG')
     return base64.b64encode(img_byte_arr.getvalue()).decode('utf-8')
 
-def query_ollama(prompt, image_base64):
+def query_ollama(prompt, image_base64, model):
     """Query Ollama with an image and prompt"""
     response = ollama.chat(
-        model='gemma3:12b',
+        model=model,
         messages=[{
             'role': 'user',
             'content': prompt,
@@ -86,7 +86,7 @@ def extract_structured_data(content, fields):
             
     return structured_data
 
-def process_image(image, filename, fields=None):
+def process_image(image, filename, fields=None, model=None):
     """Process an image with optional field extraction"""
     # Resize image and convert to base64
     img_base64 = image_to_base64(resize_image(image))
@@ -94,13 +94,13 @@ def process_image(image, filename, fields=None):
     if fields is None:
         # General description mode
         prompt = 'Describe what you see in this image in detail.'
-        content = query_ollama(prompt, img_base64)
+        content = query_ollama(prompt, img_base64, model)
         return {'filename': filename, 'description': content}, content, None
     else:
         # Custom field extraction mode
         fields_str = ", ".join(fields)
         prompt = f"Extract the following information from this image: {fields_str}. Return the results in JSON format with these exact field names."
-        content = query_ollama(prompt, img_base64)
+        content = query_ollama(prompt, img_base64, model)
         
         # Extract structured data
         structured_data = {'filename': filename}
@@ -108,7 +108,7 @@ def process_image(image, filename, fields=None):
             
         return {'filename': filename, 'extraction': content}, content, structured_data
 
-def process_pdf(file_bytes, filename, fields=None, process_pages_separately=True):
+def process_pdf(file_bytes, filename, fields=None, process_pages_separately=True, model=None):
     """Process a PDF file using PyMuPDF"""
     try:
         # Open PDF document from memory
@@ -123,7 +123,7 @@ def process_pdf(file_bytes, filename, fields=None, process_pages_separately=True
                 img = Image.frombytes("RGB", [pix.width, pix.height], pix.samples)
                 page_filename = f"{filename} (Page {page_num+1})"
                 
-                result, content, structured_data = process_image(img, page_filename, fields)
+                result, content, structured_data = process_image(img, page_filename, fields, model)
                 yield page_num, page_count, img, page_filename, content, structured_data
         else:
             # Process only the first page
@@ -131,7 +131,7 @@ def process_pdf(file_bytes, filename, fields=None, process_pages_separately=True
             pix = page.get_pixmap(matrix=fitz.Matrix(1.5, 1.5))
             img = Image.frombytes("RGB", [pix.width, pix.height], pix.samples)
             
-            result, content, structured_data = process_image(img, filename, fields)
+            result, content, structured_data = process_image(img, filename, fields, model)
             yield 0, page_count, img, filename, content, structured_data
             
     except Exception as e:
@@ -211,6 +211,14 @@ with st.sidebar:
         "Choose images or PDFs", 
         accept_multiple_files=True, 
         type=['png', 'jpg', 'jpeg', 'pdf']
+    )
+    
+    # Model selection
+    st.header("Model Settings")
+    selected_model = st.selectbox(
+        "Choose vision model:",
+        ["gemma3:12b", "llama3.2-vision"],
+        help="Select which AI model to use for image analysis"
     )
     
     extraction_mode = "General description"
@@ -296,7 +304,7 @@ if uploaded_files and process_button:
             try:
                 process_separately = pdf_process_mode == "Process each page separately"
                 
-                for page_info in process_pdf(file_bytes, uploaded_file.name, fields, process_separately):
+                for page_info in process_pdf(file_bytes, uploaded_file.name, fields, process_separately, selected_model):
                     page_num, page_count, image, page_filename, content, structured_data = page_info
                     
                     if page_num is None:  # Error case
@@ -342,7 +350,7 @@ if uploaded_files and process_button:
             try:
                 image = Image.open(uploaded_file)
                 
-                result, content, structured_data = process_image(image, uploaded_file.name, fields)
+                result, content, structured_data = process_image(image, uploaded_file.name, fields, selected_model)
                 st.session_state.results.append(result)
                 
                 if structured_data and len(structured_data) > 1:
@@ -383,14 +391,15 @@ if not uploaded_files:
     st.write("""
     ## How to use this app:
     1. Upload one or more images or PDF files using the sidebar on the left
-    2. Choose between general description or custom field extraction
-    3. If using custom extraction, specify the fields you want to extract
-    4. For PDFs, choose whether to process each page separately or the entire document
-    5. Click the 'Process Files' button to analyze them
-    6. View the results for each image or PDF page
-    7. Download results as a CSV file
+    2. Select which vision model to use for analysis
+    3. Choose between general description or custom field extraction
+    4. If using custom extraction, specify the fields you want to extract
+    5. For PDFs, choose whether to process each page separately or the entire document
+    6. Click the 'Process Files' button to analyze them
+    7. View the results for each image or PDF page
+    8. Download results as a CSV file
     
-    This app uses the Gemma 3 12B vision model to analyze images and PDFs.
+    This app uses either the Gemma 3 12B vision model or Llama 3.2 Vision model to analyze images and PDFs.
     """)
 
 # Add a footer with attribution

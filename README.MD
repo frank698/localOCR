@@ -2,20 +2,21 @@
 
 # Curiosity AI Scans
 
-A simple application that uses AI vision models to analyze and describe images and PDF documents. Upload multiple files, get detailed descriptions powered by Gemma 3, and export the results to CSV.
+A simple application that uses AI vision models to analyze and describe images and PDF documents. Upload multiple files, get detailed descriptions powered by Gemma 3 or Llama 3.2, and export the results to CSV.
 
 ## What this application does
 
 This application allows you to:
 
 - Upload multiple images (JPG, PNG) and PDF documents
-- Process these files using the Gemma 3 12B vision model through Ollama
+- Process these files using either Gemma 3 12B or Llama 3.2 11B Vision models through Ollama
+- Choose which vision model to use for different analysis needs
 - Get detailed AI-generated descriptions of the content in each image or PDF page
 - Extract specific fields from documents (e.g., invoice numbers, dates, amounts)
 - View the analysis results in a clean, organized interface
 - Export all results to a CSV file for further analysis or record-keeping
 
-The app uses Streamlit for the interface, Ollama as the backend for running the Gemma 3 vision model locally, PIL for image processing, and PyMuPDF for PDF support.
+The app uses Streamlit for the interface, Ollama as the backend for running the vision models locally, PIL for image processing, and PyMuPDF for PDF support.
 
 ## Installation and setup
 
@@ -38,13 +39,19 @@ brew install ollama
 1. Download the Ollama installer from [https://ollama.com/download](https://ollama.com/download)
 2. Run the installer and follow the on-screen instructions
 
-### Step 2: Pull the Gemma-3 Vision model
+### Step 2: Pull the required vision models
 
-After installing Ollama, pull the required model:
+After installing Ollama, pull the required models:
+
 ```bash
-# On all platforms
-ollama run gemma3:12b
+# Pull the Gemma 3 Vision model 
+ollama pull gemma3:12b
+
+# Pull the Llama 3.2 Vision model
+ollama pull llama3.2-vision
 ```
+
+You can pull just one or both models depending on your needs. The app will work with whichever model you have installed.
 
 ### Step 3: Set up Python environment
 
@@ -113,20 +120,28 @@ pip install pymupdf
 
 ## Features
 
-- Upload and analyze multiple images and PDF documents using Gemma 3 vision model
-- Choose between general description and custom field extraction
+- Upload and analyze multiple images and PDF documents using vision models
+- Choose between Gemma 3 12B and Llama 3.2 Vision models for analysis
+- Select between general description and custom field extraction
 - Process PDF files page by page or as complete documents
 - Extract specific fields like invoice numbers, dates, and amounts
 - View detailed descriptions of each uploaded file
 - Download analysis results as a CSV file for further processing
+
+## Model Comparison
+
+- **Gemma 3 12B**: Google's vision-language model that provides detailed descriptions and good structure recognition
+- **Llama 3.2 Vision**: Meta's vision model that excels at recognizing visual content and following detailed instructions
+
+Choose the appropriate model based on your specific needs. Gemma 3 may perform better for some document types, while Llama 3.2 might be preferable for others.
 
 ## Technical Details
 
 This application leverages several key technologies:
 
 - **Streamlit**: Provides the web interface and interactive components
-- **Ollama**: Runs the Gemma 3 vision model locally 
-- **Gemma 3 12B**: Google's vision-language model that powers the image analysis
+- **Ollama**: Runs the vision models locally 
+- **Gemma 3 12B & Llama 3.2 Vision**: Vision-language models that power the image analysis
 - **Pillow (PIL)**: Handles image processing and format conversion
 - **PyMuPDF**: Converts PDF pages to images for processing (imported as `fitz`)
 - **Pandas**: Used for data manipulation and CSV export
@@ -136,6 +151,7 @@ This application leverages several key technologies:
 - **Package installation issues**: If you encounter problems installing the dependencies, try updating pip first: `pip install --upgrade pip`
 - **Compatibility issues**: This application works best with Python 3.9-3.12. Python 3.13 might have compatibility issues with some packages.
 - **Ollama connection errors**: Ensure Ollama is running by checking `ollama serve` or restarting the Ollama service.
+- **Model availability**: If you get an error about a model not being available, make sure you've pulled it with `ollama pull <model_name>`
 - **PDF processing errors**: If PDF processing isn't working, ensure PyMuPDF is installed correctly with `pip install pymupdf`.
 - **PDF support optional**: The application will run without PDF support, but will display a warning. Install PyMuPDF to enable PDF processing.
 

